@@ -1,0 +1,20 @@
+# using ansible to show interface information
+
+# mkdir /etc/ansible/playbook
+# nano show_int.yml
+
+---
+- name: SHOW IP INTERFACE BRIEF
+  hosts: routers
+  gather_facts: false
+  connection: network_cli
+  
+  tasks:
+    - name: run the command "show ip interface brief"
+      ios_command:
+        commands: show ip interface brief
+      register: output1
+
+    - name: print result
+      debug:
+        var: output1.stdout_lines
