@@ -1,0 +1,129 @@
+---------S1 SCENARIO 1--Running Configuration--SID: 1705828-----------
+
+Current configuration : 3092 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname S1
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+system mtu routing 1500
+ip subnet-zero
+!
+ip sla 50
+ icmp-echo 192.168.2.2 source-ip 192.168.1.2
+ frequency 5
+ip sla schedule 50 life forever start-time now
+!         
+crypto pki trustpoint TP-self-signed-4216787840
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-4216787840
+ revocation-check none
+ rsakeypair TP-self-signed-4216787840
+!
+crypto pki certificate chain TP-self-signed-4216787840
+ certificate self-signed 01
+  3082023B 308201A4 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 34323136 37383738 3430301E 170D3933 30333031 30303032 
+  31395A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D34 32313637 
+  38373834 3030819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100AAD1 D0330DE0 535620AF 532B73D2 C0DA07A6 34FF85AC F5602042 6AE69FC1 
+  19AAFB91 31E6CCCA 6FE5AC6A AE971B4A 7084D54F F55C823B 37553162 76DD47DF 
+  8125EF98 549D3E9B 6958226B EF20FBB3 86897229 80EE3B8E E04DA452 8323F9DD 
+  BF9A46D5 EF3102E5 FB27A237 DFC0301B 1F05D02D B2C3C256 D9F44F82 B1455147 
+  7CE30203 010001A3 63306130 0F060355 1D130101 FF040530 030101FF 300E0603 
+  551D1104 07300582 0353312E 301F0603 551D2304 18301680 141C072B 9E9F555A 
+  716CF8EA C7BEFB90 405A55C3 2A301D06 03551D0E 04160414 1C072B9E 9F555A71 
+  6CF8EAC7 BEFB9040 5A55C32A 300D0609 2A864886 F70D0101 04050003 81810057 
+  5008736A 7F77B815 F1D4AD0A E74125BD 7EB62475 27493800 2B360730 09733B94 
+  F171C0FB E3234189 CC992110 8E93CB19 79888EDD D9560261 7642E770 1B0D7F56 
+  82F0A513 B1AE1968 FFF797FE 5803B404 E707C262 D2AE9C7B 694ECA97 DEF336CE 
+  A77101C2 61E07C7D 977D097A F92BF7C6 AAEE3D8F 2F68B21A F23AA970 EF53FA
+  quit
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+interface FastEthernet0/1
+ shutdown
+!
+interface FastEthernet0/2
+ shutdown 
+!
+interface FastEthernet0/3
+ shutdown
+!
+interface FastEthernet0/4
+ shutdown
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!         
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ ip address 192.168.1.2 255.255.255.0
+ no ip route-cache
+!
+ip http server
+ip http secure-server
+!
+control-plane
+!
+line con 0
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+end

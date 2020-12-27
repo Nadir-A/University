@@ -1,0 +1,169 @@
+--------S3 SCENARIO 3---Running Configuration--SID: 1705828-----------
+
+Current configuration : 3891 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname S3
+!
+boot-start-marker
+boot-end-marker
+!
+username admin privilege 15 secret 5 $1$fJrZ$9zxrHOz.4yF4Fm916Xa3/1
+no aaa new-model
+system mtu routing 1500
+ip subnet-zero
+!
+ip dhcp snooping vlan 1
+ip dhcp snooping
+ip domain-name cisco.com
+!
+crypto pki trustpoint TP-self-signed-1977137024
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1977137024
+ revocation-check none
+ rsakeypair TP-self-signed-1977137024
+!
+crypto pki certificate chain TP-self-signed-1977137024
+ certificate self-signed 01
+  30820244 308201AD A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31393737 31333730 3234301E 170D3933 30333031 30303033 
+  33365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 39373731 
+  33373032 3430819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100CF1A DA303611 408BB59B DC4A980A 130FD6FD C0EA37E8 3D940B75 8E54A131 
+  2F7F1C42 366810F7 AA77FB30 F9B88076 FA72AF0F DBACDF66 1A4FB9CA 58D10F65 
+  2DB3344F 30B1988B 918DF5B3 E19FCAC8 03EB02E4 6B0E59E0 724490A5 018127B9 
+  80B720C1 6149D458 1201DE52 942F4F3C 9861B6D6 D728B822 EF0DE8C5 F8FCE49D 
+  54E70203 010001A3 6C306A30 0F060355 1D130101 FF040530 030101FF 30170603 
+  551D1104 10300E82 0C53332E 63697363 6F2E636F 6D301F06 03551D23 04183016 
+  8014D870 B11E3AB5 7FB0227B 3167793E 266A5353 5498301D 0603551D 0E041604 
+  14D870B1 1E3AB57F B0227B31 67793E26 6A535354 98300D06 092A8648 86F70D01 
+  01040500 03818100 5843D799 BB5E4753 C34F8B55 FC501239 621F659F 35BF7BFE 
+  979452CD D1FB85AD 5D24BB22 E4AD9529 5CCD8B24 2BC868D7 AB2EFC69 E59EF7D9 
+  71D7F02B EF6A1577 BF50A727 8D336A74 C7C5B655 38155315 11CE4381 CF17AD7F 
+  920BC38F DF800366 7B7107FC 8F428D28 34159B2D 2BB06D91 0AFC3965 47474FAA 
+  8C6A9B84 312F58A2
+  quit
+!
+mac access-list extended MAC_ACL
+ permit fcfb.fb57.1384 0000.0000.0011 a418.75d8.b784 0000.0000.0011
+ permit 3037.a648.2580 0000.0000.0011 a418.75d8.b784 0000.0000.0011
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!         
+ip ssh version 2
+!
+interface FastEthernet0/1
+ shutdown
+!
+interface FastEthernet0/2
+ shutdown
+!
+interface FastEthernet0/3
+ shutdown
+!
+interface FastEthernet0/4
+ shutdown
+!
+interface FastEthernet0/5
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky
+ mac access-group MAC_ACL in
+!
+interface FastEthernet0/6
+ shutdown
+!         
+interface FastEthernet0/7
+ shutdown
+!
+interface FastEthernet0/8
+ shutdown
+!
+interface FastEthernet0/9
+ shutdown
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ shutdown
+!
+interface FastEthernet0/12
+ shutdown
+!
+interface FastEthernet0/13
+ shutdown
+!
+interface FastEthernet0/14
+ shutdown 
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ description Access Port
+ switchport mode access
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky
+ storm-control broadcast level 50.00
+ storm-control multicast level 50.00
+ spanning-tree bpduguard disable
+ spanning-tree guard root
+!
+interface FastEthernet0/19
+ shutdown
+!         
+interface FastEthernet0/20
+ shutdown
+!
+interface FastEthernet0/21
+ shutdown
+!
+interface FastEthernet0/22
+ shutdown
+!
+interface FastEthernet0/23
+ shutdown
+!
+interface FastEthernet0/24
+ shutdown
+!
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface Vlan1
+ ip address 192.168.2.2 255.255.255.0
+ no ip route-cache
+!
+ip http server
+ip http secure-server
+!
+control-plane
+!
+line con 0
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+end

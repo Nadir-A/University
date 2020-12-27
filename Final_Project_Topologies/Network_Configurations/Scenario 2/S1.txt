@@ -1,0 +1,167 @@
+---------S1 SCENARIO 2--Running Configuration--SID: 1705828-----------
+
+Current configuration : 3872 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname S1
+!
+boot-start-marker
+boot-end-marker
+!
+username admin privilege 15 secret 5 $1$s/yC$5GRLZ368nFn1AsgztssJD/
+no aaa new-model
+system mtu routing 1500
+ip subnet-zero
+!
+ip dhcp snooping vlan 1
+ip dhcp snooping
+ip domain-name cisco.com
+ip sla 50 
+ icmp-echo 192.168.2.2 source-ip 192.168.1.2
+ frequency 5
+ip sla schedule 50 life forever start-time now
+!
+crypto pki trustpoint TP-self-signed-4216787840
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-4216787840
+ revocation-check none
+ rsakeypair TP-self-signed-4216787840
+!
+crypto pki certificate chain TP-self-signed-4216787840
+ certificate self-signed 01
+  30820244 308201AD A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 34323136 37383738 3430301E 170D3933 30333031 30303033 
+  33335A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D34 32313637 
+  38373834 3030819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100D27A 43053A0D 99D392A4 B87CD24B C2AF3992 2F5C1932 549D1E1A A4784F0D 
+  23F35DAB 3806C221 1FF5004B F63BB586 3675614A C610B17C D92A2A7B 96883A50 
+  BBA3D6E6 9C78666C FB57A6B6 41E22D18 EACF4A5D 4A565917 4B8FD604 B418AC9E 
+  B98B597B 1391F38E 5110FF50 1B9B3398 C043FFD5 A0B3E120 CCE51D0B 4780BF0B 
+  E9A70203 010001A3 6C306A30 0F060355 1D130101 FF040530 030101FF 30170603 
+  551D1104 10300E82 0C53312E 63697363 6F2E636F 6D301F06 03551D23 04183016 
+  80147926 6FF1AB80 EDD810EB D9F37781 689C20BD A930301D 0603551D 0E041604 
+  1479266F F1AB80ED D810EBD9 F3778168 9C20BDA9 30300D06 092A8648 86F70D01 
+  01040500 03818100 5F3AB4DA 3928B25B 8B92839A CE2E0974 22FB5C52 575BA18D 
+  3DFBC0A1 8C9FDC5A B455C326 FF42B711 42AF6F3F CB13C32C FE7B64D3 878A7D00 
+  8AE0696B 75123402 35799F44 3E3057D7 5273E952 8335842B 31927986 C02EC58C 
+  E1ED7832 C30B0EB3 7B6C3FDE F562C44E 08A4E852 EA75FFD9 D17016F3 7941C64E 
+  A228F46A A67CD5B2
+  quit
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip ssh version 2
+!
+interface FastEthernet0/1
+ shutdown
+!
+interface FastEthernet0/2
+ shutdown
+!
+interface FastEthernet0/3
+ shutdown
+!
+interface FastEthernet0/4
+ shutdown
+interface FastEthernet0/5
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky
+!
+interface FastEthernet0/6
+ description Access Port
+ switchport mode access
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky
+ storm-control broadcast level 70.50
+ storm-control multicast level 70.50
+ spanning-tree bpduguard disable
+ spanning-tree guard root
+!
+interface FastEthernet0/7
+ shutdown
+!
+interface FastEthernet0/8
+ shutdown
+!
+interface FastEthernet0/9
+ shutdown
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ shutdown
+!
+interface FastEthernet0/12
+ shutdown
+!
+interface FastEthernet0/13
+ shutdown
+!
+interface FastEthernet0/14
+ shutdown
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ shutdown
+!
+interface FastEthernet0/19
+ shutdown
+!
+interface FastEthernet0/20
+ shutdown 
+!
+interface FastEthernet0/21
+ shutdown
+!
+interface FastEthernet0/22
+ shutdown
+!
+interface FastEthernet0/23
+ shutdown
+!
+interface FastEthernet0/24
+ shutdown
+!
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface Vlan1
+ ip address 192.168.1.2 255.255.255.0
+ no ip route-cache
+!         
+ip http server
+ip http secure-server
+!
+control-plane
+!
+line con 0
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+end

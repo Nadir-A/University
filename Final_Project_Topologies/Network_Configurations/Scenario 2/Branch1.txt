@@ -1,0 +1,94 @@
+---------Branch1 SCENARIO 2--Running Configuration--SID: 1705828-----------
+
+Current configuration : 1641 bytes
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Branch1
+!
+boot-start-marker
+boot-end-marker
+!
+logging message-counter syslog
+!
+no aaa new-model
+memory-size iomem 15
+!
+dot11 syslog
+ip source-route
+!
+ip cef
+!         
+no ip domain lookup
+ip domain name cisco.com
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+voice-card 0
+!
+username admin privilege 15 secret 5 $1$UN24$QWKW1TXSdPfyPFDLgdrMY1
+archive
+ log config
+  hidekeys
+! 
+ip ssh version 2
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ description Branch1 --> S1
+ ip address 192.168.1.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ description Branch1 --> Central
+ ip address 192.168.10.1 255.255.255.252
+ ip access-group Traffic_ACL in
+ ip ospf authentication
+ clock rate 2000000
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 192.168.1.0 0.0.0.255 area 1
+ network 192.168.10.0 0.0.0.3 area 1
+!
+ip forward-protocol nd
+ip route 0.0.0.0 0.0.0.0 192.168.10.2
+no ip http server
+no ip http secure-server
+!
+ip access-list standard Traffic_ACL
+ permit 192.168.10.0 0.0.0.3
+ permit 192.168.1.0 0.0.0.255
+ deny   any
+!
+ip sla 10
+ icmp-jitter 192.168.20.1 source-ip 192.168.1.1
+ frequency 10
+ip sla schedule 10 life forever start-time now
+!
+control-plane
+!
+banner motd ^CCCCCCUnauthorised Access NOT Permitted!^C
+!
+line con 0
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+end

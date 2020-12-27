@@ -1,0 +1,125 @@
+---------S3 SCENARIO 1--Running Configuration--SID: 1705828-----------
+
+Current configuration : 2979 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname S3
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+system mtu routing 1500
+ip subnet-zero
+!
+crypto pki trustpoint TP-self-signed-1977137024
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1977137024
+ revocation-check none
+ rsakeypair TP-self-signed-1977137024
+!
+crypto pki certificate chain TP-self-signed-1977137024
+ certificate self-signed 01
+  3082023B 308201A4 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31393737 31333730 3234301E 170D3933 30333031 30303032 
+  32325A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 39373731 
+  33373032 3430819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100A3D7 5738AC1D 94679F81 4D2D9A05 E9CBBCEA D44EE980 510DE7F3 3F78E7CA 
+  01BB5D0B 011B4F7C 475B6A03 FAE51CED 3D40C190 7FACA2B3 E383EC20 FC3ADC3A 
+  7C50C613 06E4A739 A37FE904 81E3AB43 9D0C5151 041F0003 A3968997 F69156CA 
+  5AF3E01F 57EA74AF CEDD4FD5 6B94D2C8 E252FA2B DF4A9DD7 7B8AE09B 9593D3F8 
+  E2F30203 010001A3 63306130 0F060355 1D130101 FF040530 030101FF 300E0603 
+  551D1104 07300582 0353332E 301F0603 551D2304 18301680 145DFF51 C2D9FCF2 
+  15052DF5 93E9036F 4D4499A0 13301D06 03551D0E 04160414 5DFF51C2 D9FCF215 
+  052DF593 E9036F4D 4499A013 300D0609 2A864886 F70D0101 04050003 81810054 
+  4BCEC256 E9DDF58F 5A446DEF FCE1A3CA 9ACB3934 FFCCA6E3 314AE426 42A4F3F9 
+  ED3F2FDC D836BFD3 2A8A188B 209CEB85 92FAD054 DE5112AE 465AE7C5 4005E27F 
+  4F8A23D2 593BD07C AB523E29 66D990C3 2B5202F8 61F3C252 A82F0ED3 ECF0C33E 
+  F61FDE4F FEEA5BC9 2E570F3C 4572E51C F64A576A A20F768E 9C630096 AC9F96
+  quit
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+interface FastEthernet0/1
+ shutdown
+!
+interface FastEthernet0/2
+ shutdown
+!
+interface FastEthernet0/3
+ shutdown 
+!
+interface FastEthernet0/4
+ shutdown
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!         
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ ip address 192.168.2.2 255.255.255.0
+ no ip route-cache
+!
+ip http server
+ip http secure-server
+!
+control-plane
+!
+!
+line con 0
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+end
