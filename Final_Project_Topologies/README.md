@@ -1,6 +1,8 @@
 # Final-Project
 The file named "Network Configurations" in this repository is considered as the artefact of project.
 
+The 3 scenarios have been configured with different levels of security and were used to analyse the change in network performance. 
+
 Configurations for ALL Scenarios
 
     To set up scenarios:
