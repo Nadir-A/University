@@ -1,0 +1,13 @@
+---
+# SSH login credentials for Ansible
+# connection between the ansible machine and the network is through SSH
+# We store this file in the group variable file in ansible so it can be called again
+
+# username for SSH
+ansible_ssh_user: admin
+
+# password for SSH
+ansbile_ssh_pass: class
+
+# operating system of device
+ansible_network_os: ios

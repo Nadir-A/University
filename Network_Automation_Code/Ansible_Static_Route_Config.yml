@@ -1,0 +1,41 @@
+#Ansible Playbook, configuring static routing
+
+---
+- name: ROUTING
+  # "hosts" is the device that will be affected by this part of the Playbook
+  # "specific devices (in this case the routers) are specifed in the hosts directory in ansible "
+  hosts: routers
+  gather_facts: false
+  connection: network_cli
+
+  tasks
+
+    - name: configure aggregates of static routes
+      net_static_route:
+
+        # using the term "aggregate" we can configure multiple routes
+        aggregate:
+
+          # configuring static route to a loopback address
+          - { prefix: 192.168.4.1, mask: 255.255.255.0, next_hop: 172.16.2.1 }
+
+          # configuring a default route
+          - { prefix 0.0.0.0, mask 0.0.0.0, next_hop: 172.16.2.1 }
+
+    # verifying the static route configuration by running the routing table
+    - name: run the command "show ip route"
+      ios_command:
+        commands: show ip route
+      register: output1
+
+    # displaying the results of "show ip route" command, (routing table)
+    - name: print result
+      debug:
+        var: output1.stdout_lines
+
+    #saving configurations
+    handlers:
+      - name: do wr
+        ios_command:
+          commands: wr
+          

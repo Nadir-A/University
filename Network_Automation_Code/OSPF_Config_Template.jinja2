@@ -1,0 +1,7 @@
+#sid 1705828
+#jinja template for ospf configuration, used for paramiko
+
+router ospf 1
+{%for network in networks%}
+network {{ network }} area 0
+{% endfor %}
